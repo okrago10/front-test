@@ -1,10 +1,13 @@
-import { Center, Title } from '@mantine/core'
+import { Container, Stack, Text, Title } from '@mantine/core'
 
 function App() {
   return (
-    <Center mih="100vh">
-      <Title order={1}>front-test</Title>
-    </Center>
+    <Container size="md" py="md">
+      <Stack align="center" gap="md">
+        <Title order={1}>テストタイトル</Title>
+        <Text size="md" ta="center">テストテキストテストテキストテストテキストテストテキストテストテキストテストテキスト</Text>
+      </Stack>
+    </Container>
   )
 }
 
