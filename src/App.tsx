@@ -17,10 +17,12 @@ function App() {
           onReject={() => alert('CSV ファイルを1つだけアップロードしてください')}
           accept={['text/csv', 'application/vnd.ms-excel']}
           maxFiles={1}
+          bg="gray.1"
         >
-          <Group justify="center" mih={120} style={{ pointerEvents: 'none' }}>
-            <Text c="dimmed">ファイルをアップロード</Text>
-          </Group>
+          <Stack align="center" justify="center" gap={4} mih={120} style={{ pointerEvents: 'none' }}>
+            <Text c="dark.3" fw={500}>ここにファイルをドラッグ&ドロップ</Text>
+            <Text c="dimmed" size="sm">またはクリックしてファイルを選択</Text>
+          </Stack>
         </Dropzone>
         {file && (
           <Paper withBorder p="xs" radius="md">
