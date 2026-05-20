@@ -19,7 +19,7 @@ function App() {
           maxFiles={1}
           bg="gray.1"
         >
-          <Stack align="center" justify="center" gap={4} mih={120} style={{ pointerEvents: 'none' }}>
+          <Stack align="center" justify="center" gap={4} mih={200} style={{ pointerEvents: 'none' }}>
             <Text c="dark.3" fw={500}>ここにファイルをドラッグ&ドロップ</Text>
             <Text c="dimmed" size="sm">またはクリックしてファイルを選択</Text>
           </Stack>
