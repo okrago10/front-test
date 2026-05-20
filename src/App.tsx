@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { ActionIcon, Container, Group, Paper, Radio, Stack, Text, TextInput, Title } from '@mantine/core'
+import { ActionIcon, Container, Group, Paper, Radio, Stack, Text, TextInput, Title, TreeSelect } from '@mantine/core'
 import { Dropzone } from '@mantine/dropzone'
 import { IconX } from '@tabler/icons-react'
 
@@ -56,6 +56,35 @@ function App() {
             </Paper>
           ))}
         </Stack>
+        <TreeSelect
+          label="カテゴリ"
+          placeholder="選択してください"
+          data={[
+            {
+              value: 'food',
+              label: '食品',
+              children: [
+                { value: 'fruit', label: '果物' },
+                { value: 'vegetable', label: '野菜' },
+                { value: 'meat', label: '肉' },
+                { value: 'fish', label: '魚' },
+                { value: 'dairy', label: '乳製品' },
+              ],
+            },
+            {
+              value: 'electronics',
+              label: '家電',
+              children: [
+                { value: 'tv', label: 'テレビ' },
+                { value: 'phone', label: 'スマホ' },
+                { value: 'pc', label: 'パソコン' },
+                { value: 'camera', label: 'カメラ' },
+                { value: 'audio', label: 'オーディオ' },
+              ],
+            },
+          ]}
+          expandOnClick
+        />
         <TextInput label="テストラベル" placeholder="入力してください" />
         <TextInput label="テストラベル" placeholder="入力してください" />
 
