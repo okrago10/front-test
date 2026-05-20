@@ -9,18 +9,20 @@ function App() {
   return (
     <Container size="md" py="md">
       <Stack gap="md">
-        <Title order={1} ta="center">テストタイトル</Title>
-        <Text size="md" ta="center">テストテキストテストテキストテストテキストテストテキストテストテキストテストテキスト</Text>
+        <Title order={1} ta="center">商品データ一括加工ツール</Title>
+        <Text size="md" ta="center">商品CSVをアップロードするだけで、価格の自動調整や画像チェックなど、煩雑なデータ整形作業をまとめて実行できます。</Text>
         <Dropzone
           onDrop={(files) => setFile(files[0])}
           // TODO: alert を @mantine/notifications のトーストに差し替える
           onReject={() => alert('CSV ファイルを1つだけアップロードしてください')}
           accept={['text/csv', 'application/vnd.ms-excel']}
           maxFiles={1}
+          bg="gray.1"
         >
-          <Group justify="center" mih={120} style={{ pointerEvents: 'none' }}>
-            <Text c="dimmed">ファイルをアップロード</Text>
-          </Group>
+          <Stack align="center" justify="center" gap={4} mih={200} style={{ pointerEvents: 'none' }}>
+            <Text c="dark.3" fw={500}>ここにファイルをドラッグ&ドロップ</Text>
+            <Text c="dimmed" size="sm">またはクリックしてファイルを選択</Text>
+          </Stack>
         </Dropzone>
         {file && (
           <Paper withBorder p="xs" radius="md">
@@ -40,20 +42,17 @@ function App() {
             </Group>
           </Paper>
         )}
-        <Text size="md" ta="center">アップロードしたファイルの内容をもとに、以下の機能で詳細な分析結果や編集オプションをご利用いただけます。</Text>
+        <Text size="md" ta="center">アップロードした商品CSVに対して、以下の処理を実行できます。必要な処理を選択してください。</Text>
         <Stack gap="xs">
-          {['機能A', '機能B'].map((item) => (
-            <Paper key={item} withBorder p="sm" radius="md">
-              <Group justify="space-between" wrap="nowrap">
-                <Text size="sm">{item}</Text>
-                <Radio.Group defaultValue="不要" name={`needed-${item}`}>
-                  <Group gap="md">
-                    <Radio value="必要" label="必要" />
-                    <Radio value="不要" label="不要" />
-                  </Group>
-                </Radio.Group>
-              </Group>
-            </Paper>
+          {['価格の自動丸め処理', '商品画像URLの有効性チェック'].map((item) => (
+            <Radio.Group key={item} defaultValue="不要" name={`needed-${item}`} label={item} labelProps={{ fz: 'md' }}>
+              <Paper withBorder p="sm" radius="md" mt="xs">
+                <Group gap="md">
+                  <Radio value="必要" label="必要"/>
+                  <Radio value="不要" label="不要"/>
+                </Group>
+              </Paper>
+            </Radio.Group>
           ))}
         </Stack>
         <TreeSelect
@@ -84,9 +83,11 @@ function App() {
             },
           ]}
           expandOnClick
+          size='md'
         />
-        <TextInput label="テストラベル" placeholder="入力してください" />
-        <TextInput label="テストラベル" placeholder="入力してください" />
+        <TextInput label="出力ファイル名" placeholder="例: products_2026_05" size='md'/>
+        <TextInput label="処理担当者" placeholder="氏名を入力してください" size='md'/>
+        <TextInput label="備考" placeholder="処理に関するメモがあれば入力してください" size='md'/>
         <Button size="lg">実行</Button>
       </Stack>
     </Container>
