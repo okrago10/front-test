@@ -40,6 +40,7 @@ function App() {
             </Group>
           </Paper>
         )}
+        <Text size="md" ta="center">アップロードしたファイルの内容をもとに、以下の機能で詳細な分析結果や編集オプションをご利用いただけます。</Text>
       </Stack>
     </Container>
   )
