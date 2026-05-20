@@ -87,6 +87,7 @@ function App() {
         />
         <TextInput label="テストラベル" placeholder="入力してください" size='md'/>
         <TextInput label="テストラベル" placeholder="入力してください" size='md'/>
+        <TextInput label="テストラベル" placeholder="入力してください" size='md'/>
         <Button size="lg">実行</Button>
       </Stack>
     </Container>
