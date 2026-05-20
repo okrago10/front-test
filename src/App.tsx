@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { ActionIcon, Container, Group, Paper, Radio, Stack, Text, Title } from '@mantine/core'
+import { ActionIcon, Container, Group, Paper, Radio, Stack, Text, TextInput, Title } from '@mantine/core'
 import { Dropzone } from '@mantine/dropzone'
 import { IconX } from '@tabler/icons-react'
 
@@ -56,6 +56,9 @@ function App() {
             </Paper>
           ))}
         </Stack>
+        <TextInput label="テストラベル" placeholder="入力してください" />
+        <TextInput label="テストラベル" placeholder="入力してください" />
+
       </Stack>
     </Container>
   )
