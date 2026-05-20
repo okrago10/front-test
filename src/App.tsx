@@ -45,7 +45,7 @@ function App() {
         <Text size="md" ta="center">アップロードしたファイルの内容をもとに、以下の機能で詳細な分析結果や編集オプションをご利用いただけます。</Text>
         <Stack gap="xs">
           {['機能A', '機能B'].map((item) => (
-            <Radio.Group key={item} defaultValue="不要" name={`needed-${item}`} label={item}>
+            <Radio.Group key={item} defaultValue="不要" name={`needed-${item}`} label={item} labelProps={{ fz: 'md' }}>
               <Paper withBorder p="sm" radius="md" mt="xs">
                 <Group gap="md">
                   <Radio value="必要" label="必要"/>
