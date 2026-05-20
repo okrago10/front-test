@@ -43,17 +43,14 @@ function App() {
         <Text size="md" ta="center">アップロードしたファイルの内容をもとに、以下の機能で詳細な分析結果や編集オプションをご利用いただけます。</Text>
         <Stack gap="xs">
           {['機能A', '機能B'].map((item) => (
-            <Paper key={item} withBorder p="sm" radius="md">
-              <Group justify="space-between" wrap="nowrap">
-                <Text size="sm">{item}</Text>
-                <Radio.Group defaultValue="不要" name={`needed-${item}`}>
-                  <Group gap="md">
-                    <Radio value="必要" label="必要" />
-                    <Radio value="不要" label="不要" />
-                  </Group>
-                </Radio.Group>
-              </Group>
-            </Paper>
+            <Radio.Group key={item} defaultValue="不要" name={`needed-${item}`} label={item}>
+              <Paper withBorder p="sm" radius="md" mt="xs">
+                <Group gap="md">
+                  <Radio value="必要" label="必要"/>
+                  <Radio value="不要" label="不要"/>
+                </Group>
+              </Paper>
+            </Radio.Group>
           ))}
         </Stack>
         <TreeSelect
