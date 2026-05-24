@@ -1,6 +1,5 @@
 import { useState } from 'react'
-import { Button, Container, Stack } from '@mantine/core'
-import PageHeader from './components/PageHeader'
+import { Button, Container, Stack, Text, Title } from '@mantine/core'
 import CsvDropzone from './components/CsvDropzone'
 import UploadedFileCard from './components/UploadedFileCard'
 import ProcessingOptions from './components/ProcessingOptions'
@@ -13,7 +12,8 @@ function App() {
   return (
     <Container size="md" py="md">
       <Stack gap="md">
-        <PageHeader />
+        <Title order={1} ta="center">商品データ一括加工ツール</Title>
+        <Text size="md" ta="center">商品CSVをアップロードするだけで、価格の自動調整や画像チェックなど、煩雑なデータ整形作業をまとめて実行できます。</Text>
         <CsvDropzone onDrop={setFile} />
         {file && <UploadedFileCard file={file} onClear={() => setFile(null)} />}
         <ProcessingOptions />
