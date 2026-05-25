@@ -1,7 +1,7 @@
 import { ActionIcon, Group, Paper, Stack, Text } from '@mantine/core'
 import { IconX } from '@tabler/icons-react'
 
-type Props = {
+interface Props {
   file: File
   onClear: () => void
 }

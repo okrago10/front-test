@@ -3,7 +3,7 @@ import { Dropzone } from '@mantine/dropzone'
 
 const _ACCEPTED_MIME = ['text/csv', 'application/vnd.ms-excel']
 
-type Props = {
+interface Props {
   onDrop: (file: File) => void
 }
 
