@@ -25,12 +25,19 @@ const _CATEGORY_TREE = [
   },
 ]
 
-function CategorySelect() {
+interface Props {
+  value: string | null
+  onChange: (value: string | null) => void
+}
+
+function CategorySelect({ value, onChange }: Props) {
   return (
     <TreeSelect
       label="カテゴリ"
       placeholder="選択してください"
       data={_CATEGORY_TREE}
+      value={value}
+      onChange={onChange}
       expandOnClick
       size="md"
     />
