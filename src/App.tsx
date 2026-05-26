@@ -7,45 +7,34 @@ import type { ProcessingOptionsValue } from './components/ProcessingOptions'
 import CategorySelect from './components/CategorySelect'
 import MetaInputs from './components/MetaInputs'
 import type { MetaInputsValues } from './components/MetaInputs'
+import { useSubmitForm } from './hooks/useSubmitForm'
 
-interface SubmitStatus {
-  type: 'success' | 'error'
-  message: string
+interface FormInput {
+  file: File | null
+  processingOptions: ProcessingOptionsValue
+  category: string | null
+  meta: MetaInputsValues
 }
 
-function App() {
-  const [file, setFile] = useState<File | null>(null)
-  const [processingOptions, setProcessingOptions] = useState<ProcessingOptionsValue>({})
-  const [category, setCategory] = useState<string | null>(null)
-  const [meta, setMeta] = useState<MetaInputsValues>({
+const _INITIAL_FORM_INPUT: FormInput = {
+  file: null,
+  processingOptions: {},
+  category: null,
+  meta: {
     outputFileName: '',
     assignee: '',
     note: '',
-  })
-  const [submitting, setSubmitting] = useState(false)
-  const [status, setStatus] = useState<SubmitStatus | null>(null)
+  },
+}
 
-  const handleSubmit = async () => {
+function App() {
+  const [formInput, setFormInput] = useState<FormInput>(_INITIAL_FORM_INPUT)
+  const { submit, submitting, status, clearStatus } = useSubmitForm()
+
+  const handleSubmit = () => {
+    const { file, processingOptions, category, meta } = formInput
     if (!file) return
-    setSubmitting(true)
-    setStatus(null)
-    try {
-      const formData = new FormData()
-      formData.append('file', file)
-      formData.append('processingOptions', JSON.stringify(processingOptions))
-      formData.append('category', category ?? '')
-      formData.append('meta', JSON.stringify(meta))
-      const res = await fetch('/api/process', { method: 'POST', body: formData })
-      if (!res.ok) throw new Error(`status ${res.status}`)
-      setStatus({ type: 'success', message: '送信しました' })
-    } catch (e) {
-      setStatus({
-        type: 'error',
-        message: `送信に失敗しました（${e instanceof Error ? e.message : '不明なエラー'}）`,
-      })
-    } finally {
-      setSubmitting(false)
-    }
+    submit({ file, processingOptions, category, meta })
   }
 
   return (
@@ -53,17 +42,31 @@ function App() {
       <Stack gap="md">
         <Title order={1} ta="center">商品データ一括加工ツール</Title>
         <Text size="md" ta="center">商品CSVをアップロードするだけで、価格の自動調整や画像チェックなど、煩雑なデータ整形作業をまとめて実行できます。</Text>
-        <CsvDropzone onDrop={setFile} />
-        {file && <UploadedFileCard file={file} onClear={() => setFile(null)} />}
-        <ProcessingOptions value={processingOptions} onChange={setProcessingOptions} />
-        <CategorySelect value={category} onChange={setCategory} />
-        <MetaInputs values={meta} onChange={setMeta} />
+        <CsvDropzone onDrop={(file) => setFormInput((s) => ({ ...s, file }))} />
+        {formInput.file && (
+          <UploadedFileCard
+            file={formInput.file}
+            onClear={() => setFormInput((s) => ({ ...s, file: null }))}
+          />
+        )}
+        <ProcessingOptions
+          value={formInput.processingOptions}
+          onChange={(processingOptions) => setFormInput((s) => ({ ...s, processingOptions }))}
+        />
+        <CategorySelect
+          value={formInput.category}
+          onChange={(category) => setFormInput((s) => ({ ...s, category }))}
+        />
+        <MetaInputs
+          values={formInput.meta}
+          onChange={(meta) => setFormInput((s) => ({ ...s, meta }))}
+        />
         {status && (
-          <Alert color={status.type === 'success' ? 'green' : 'red'} withCloseButton onClose={() => setStatus(null)}>
+          <Alert color={status.type === 'success' ? 'green' : 'red'} withCloseButton onClose={clearStatus}>
             {status.message}
           </Alert>
         )}
-        <Button size="lg" onClick={handleSubmit} loading={submitting} disabled={!file}>
+        <Button size="lg" onClick={handleSubmit} loading={submitting} disabled={!formInput.file}>
           実行
         </Button>
       </Stack>
