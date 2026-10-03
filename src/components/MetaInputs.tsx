@@ -14,17 +14,18 @@ export const INITIAL_META_INPUTS: MetaInputsValues = {
   note: '',
 }
 
-interface Field {
-  key: keyof MetaInputsValues
+interface MetaField {
   label: string
   placeholder: string
 }
 
-const _FIELDS: Field[] = [
-  { key: 'outputFileName', label: '出力ファイル名', placeholder: '例: products_2026_05' },
-  { key: 'assignee', label: '処理担当者', placeholder: '氏名を入力してください' },
-  { key: 'note', label: '備考', placeholder: '処理に関するメモがあれば入力してください' },
-]
+// Record にして、MetaInputsValues との項目の過不足を型で検出する
+const _FIELDS: Record<keyof MetaInputsValues, MetaField> = {
+  outputFileName: { label: '出力ファイル名', placeholder: '例: products_2026_05' },
+  assignee: { label: '処理担当者', placeholder: '氏名を入力してください' },
+  note: { label: '備考', placeholder: '処理に関するメモがあれば入力してください' },
+}
+const _FIELD_KEYS = Object.keys(_FIELDS) as (keyof MetaInputsValues)[]
 
 interface Props {
   values: MetaInputsValues
@@ -34,11 +35,11 @@ interface Props {
 function MetaInputs({ values, onChange }: Props) {
   return (
     <Stack gap="md">
-      {_FIELDS.map(({ key, label, placeholder }) => (
+      {_FIELD_KEYS.map((key) => (
         <TextInput
           key={key}
-          label={label}
-          placeholder={placeholder}
+          label={_FIELDS[key].label}
+          placeholder={_FIELDS[key].placeholder}
           size="md"
           value={values[key]}
           onChange={(e) => onChange({ ...values, [key]: e.currentTarget.value })}
