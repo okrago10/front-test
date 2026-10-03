@@ -2,8 +2,7 @@ import { useState } from 'react'
 import { Alert, Button, Container, Stack, Text, Title } from '@mantine/core'
 import CsvDropzone from './components/CsvDropzone'
 import UploadedFileCard from './components/UploadedFileCard'
-import ProcessingOptions from './components/ProcessingOptions'
-import type { ProcessingOptionsValue } from './components/ProcessingOptions'
+import ProcessingOptions, { INITIAL_PROCESSING_OPTIONS } from './components/ProcessingOptions'
 import CategorySelect from './components/CategorySelect'
 import MetaInputs from './components/MetaInputs'
 import type { MetaInputsValues } from './components/MetaInputs'
@@ -15,7 +14,7 @@ interface SubmitStatus {
 
 function App() {
   const [file, setFile] = useState<File | null>(null)
-  const [processingOptions, setProcessingOptions] = useState<ProcessingOptionsValue>({})
+  const [processingOptions, setProcessingOptions] = useState(INITIAL_PROCESSING_OPTIONS)
   const [category, setCategory] = useState<string | null>(null)
   const [meta, setMeta] = useState<MetaInputsValues>({
     outputFileName: '',
