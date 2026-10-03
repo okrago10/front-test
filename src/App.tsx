@@ -4,8 +4,7 @@ import CsvDropzone from './components/CsvDropzone'
 import UploadedFileCard from './components/UploadedFileCard'
 import ProcessingOptions, { INITIAL_PROCESSING_OPTIONS } from './components/ProcessingOptions'
 import CategorySelect from './components/CategorySelect'
-import MetaInputs from './components/MetaInputs'
-import type { MetaInputsValues } from './components/MetaInputs'
+import MetaInputs, { INITIAL_META_INPUTS } from './components/MetaInputs'
 
 interface SubmitStatus {
   type: 'success' | 'error'
@@ -16,11 +15,7 @@ function App() {
   const [file, setFile] = useState<File | null>(null)
   const [processingOptions, setProcessingOptions] = useState(INITIAL_PROCESSING_OPTIONS)
   const [category, setCategory] = useState<string | null>(null)
-  const [meta, setMeta] = useState<MetaInputsValues>({
-    outputFileName: '',
-    assignee: '',
-    note: '',
-  })
+  const [meta, setMeta] = useState(INITIAL_META_INPUTS)
   const [submitting, setSubmitting] = useState(false)
   const [status, setStatus] = useState<SubmitStatus | null>(null)
 
